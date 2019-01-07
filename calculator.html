@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>calculator</title>
+    <style>
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: center ;
+            width: 514px;
+        }
+        .row-end{
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            width: 514px;
+        }
+        .symbol {
+            color: orange;
+        }
+        button {
+            font-size: 16px;
+            width: 128.5px;
+            height: 38px;
+        }
+    </style>
+    <script>
+        let currentValue = 0 // 记录当前输入的值
+        let lastValue = 0 // 记录上一次的值
+        let symble = '' // 记录操作符
+        let result = 0 // 结果
+
+        function buttonNumberClicked(number) {
+            console.log("按钮" + number)
+            currentValue = currentValue * 10 + number
+            document.getElementById('result').innerText = String(currentValue)
+        }
+        function buttonCClicked() {
+            console.log("按钮C被点击了")
+            currentValue = 0
+            document.getElementById('result').innerText = String(currentValue)
+            document.getElementById('formula').innerText = 0
+        }
+        function buttonEqualClicked() {
+            console.log("按钮=被点击")
+            switch (symble) {
+                case '+': {
+                    result = currentValue + lastValue
+                    break;
+                }
+                case '-': {
+                    result = lastValue - currentValue
+                    break;
+                }
+                case '/': {
+                    if (currentValue === 0) {
+                        alert("被除数不能为零")
+                        return
+                    }
+                    result = lastValue / currentValue
+                    break;
+                }
+                case '*': {
+                    result = lastValue * currentValue
+                    break;
+                }
+                default: {
+                    console.log('此符号未处理！')
+                    break;
+                }
+            }
+
+            document.getElementById('result').innerText = String(result)
+            document.getElementById('formula').innerText = String(lastValue) + symble + String(currentValue) + '='
+        }
+        function buttonAddClicked() {
+            console.log("按钮+被点击了")
+            lastValue = currentValue
+            currentValue = 0
+            symble = '+'
+            document.getElementById('formula').innerText = String(lastValue) + symble
+            document.getElementById('result').innerText = String(currentValue)
+        }
+        function buttonMinusClicked() {
+            console.log("按钮-被点击了")
+            lastValue = currentValue
+            currentValue = 0
+            symble = '-'
+            document.getElementById('formula').innerText = String(lastValue) + symble
+            document.getElementById('result').innerText = String(currentValue)
+        }
+        function buttonDivisionClicked() {
+            console.log("按钮%被点击了")
+            lastValue = currentValue
+            currentValue = 0
+            symble = '/'
+            document.getElementById('formula').innerText = String(lastValue) + symble
+            document.getElementById('result').innerText = String(currentValue)
+        }
+        function buttonSignClicked() {
+            console.log("按钮%被点击了")
+            lastValue = currentValue
+            currentValue = 0
+            symble = '*'
+            document.getElementById('formula').innerText = String(lastValue) + symble
+            document.getElementById('result').innerText = String(currentValue)
+        }
+    </script>
+</head>
+<body>
+<div class="row-end">
+<span id="formula"><br/></span>
+</div>
+<div class="row-end">
+<span id="result">0</span>
+</div>
+<div class="row">
+    <button class="symbol" onclick="button1Clicked()" type="button" disabled="disabled">（</button>
+    <button class="symbol" type="button" disabled="disabled">)</button>
+    <button class="symbol" type="button" disabled="disabled">%</button>
+    <button type="button" onclick="buttonCClicked()">C</button>
+</div>
+<div class="row" >
+    <button type="button" onclick="buttonNumberClicked(7)">7</button>
+    <button type="button" onclick="buttonNumberClicked(8)">8</button>
+    <button type="button" onclick="buttonNumberClicked(9)">9</button>
+    <button class="symbol" type="button" onclick="buttonDivisionClicked()">/</button>
+</div>
+<div class="row">
+    <button type="button" onclick="buttonNumberClicked(4)">4</button>
+    <button type="button" onclick="buttonNumberClicked(5)">5</button>
+    <button type="button" onclick="buttonNumberClicked(6)">6</button>
+    <button class="symbol" type="button" onclick="buttonSignClicked()">*</button>
+</div>
+<div class="row">
+    <button type="button" onclick="buttonNumberClicked(1)">1</button>
+    <button type="button" onclick="buttonNumberClicked(2)">2</button>
+    <button type="button" onclick="buttonNumberClicked(3)">3</button>
+    <button class="symbol" type="button" onclick="buttonMinusClicked()">－</button>
+</div>
+<div class="row">
+    <button type="button" onclick="buttonNumberClicked(0)">0</button>
+    <button class="symbol" type="button" disabled="disabled">·</button>
+    <button class="symbol" type="button" onclick="buttonEqualClicked()">=</button>
+    <button class="symbol" type="button" onclick="buttonAddClicked()">+</button>
+</div>
+</body>
+</html>
